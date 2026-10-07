@@ -1,0 +1,48 @@
+# AI Exploration - Previous Projects Analysis
+
+## Overview
+This document summarizes the projects scraped from the AGH UST GitLab repository for the AI Exploration course. The data encompasses projects from the 2024/2025 and 2026 cohorts.
+
+## Common Themes & Technologies Used
+- **Generative AI (GenAI)**: Extensive use of LLMs (ChatGPT, Gemini, Claude, Llama 3) for text generation, code interpretation, and reasoning.
+- **Multimodal AI**: Use of Vision-Language Models (VLMs) and image generation tools (DALL-E 3, Midjourney, Stable Diffusion) for UI/UX prototyping, food macro analysis, and generating comic books.
+- **Audio & Video Processing**: Integration of Text-to-Speech (TTS) models like ElevenLabs, and video generation/processing tools for automated content creation (e.g., YouTube Shorts, voice cloning).
+- **Automation & Orchestration**: Systems built using n8n or autonomous AI agents (CrewAI, LangChain) for creating automated pipelines (e.g., AI Tester Agent, YouTube content generation).
+- **Domain-Specific AI Application**: Applying AI to very specific domains such as network design, reverse engineering protocols, porting legacy code, legal advisory, and psychological evaluation (Theory of Mind).
+
+## Project Complexity Levels
+- **Basic (Exploratory)**: Prompt engineering analysis, comparative studies (e.g., how different prompts affect output, translation quality).
+- **Intermediate (Application Development)**: Developing specific applications using existing APIs, such as the local cooking assistant, language learning bots, or the YouTube Shorts generator.
+- **Advanced (Research & Engineering)**: Creating multi-agent systems to test AI on complex tasks like the "Theory of Mind" in LLMs, automating software testing via visual agents, or reverse engineering proprietary network protocols from Wireshark dumps.
+
+## List of Found Projects (2026 & 2024/2025)
+
+### 2026 Cohort
+- **AI as GNU/Linux Diagnostic Assistant**: Testing LLMs' ability to act as interactive troubleshooters for advanced Linux configurations (e.g., Arch Linux, Gentoo) and hardware setups.
+- **Video-to-Audio (AI Foley Artist)**: Using AI to generate sound effects and dialogues for silent video clips.
+- **Game Generation by LLM**: Comparing commercial models in their ability to generate simple HTML/JS games (Snake, Tetris, Minesweeper) from scratch.
+- **AI Chatbot as Social Media Recommendation Algorithm**: Evaluating if LLMs can replace classic recommendation systems by profiling users based on their interaction history.
+- **AI Crime Benchmark**: Testing models on solving fictional criminal cases based on controlled evidence sets to assess logical reasoning.
+- **Virtual Radio Broadcaster (Alter AI Ego)**: Cloning a radio host's voice to create an AI counterpart for broadcasting.
+- **AI as IT Network Designer**: Designing complex network architectures for companies based on constraints and requirements.
+- **Combating Code Rot**: Using AI to port and compile legacy code on modern systems.
+- **Reverse Engineering Network Protocols**: Assisting in analyzing Wireshark dumps to understand undocumented proprietary protocols.
+- **Porting Legacy Code**: Testing AI's ability to port old assembly/DOS code to modern environments (e.g., MASM to NASM, DOS to SDL).
+
+### 2024/2025 Cohort (Selected)
+- **DeepShorts**: Fully automated generation of YouTube Shorts using n8n orchestration, LLMs for scripting, DALL-E for images, and ElevenLabs for voice.
+- **Legal Advisor AI**: Evaluating AI models in providing legal advice and analyzing legal documents.
+- **MacroCalc AI**: Using VLM to analyze food pictures and estimate macronutrients (proteins, fats, carbs, calories).
+- **AI Beta Tester**: An autonomous AI agent that tests web applications by behaving like a real user, making decisions based on visual input.
+- **No-Keyboard Design**: Designing UIs using only voice commands and spatial manipulation (Visual Grounding).
+- **Theory of Mind in LLMs**: A multi-agent system designed to automatically test if models possess "Theory of Mind" reasoning abilities.
+- **Audio Description with AI**: Using AI to summarize texts and generate video/audio descriptions.
+- **Poker Battle Royale LLM**: Simulating Texas Hold'em poker games between different LLMs to evaluate their strategies, bluffing, and risk management.
+- **Bot/Extremist Detection**: Identifying automated or extremist accounts on forums using LLMs.
+- **Promptography**: Testing AI image generation models to create photorealistic images without a camera through precise prompting.
+
+## Potential Inspiration for Our Project
+- **Multi-Agent Evaluation Systems**: Building an automated pipeline where one agent generates tests, another solves them, and a third evaluates the results (as seen in the Theory of Mind project). This minimizes human bias and can be applied to cybersecurity tasks.
+- **Cybersecurity & Reverse Engineering**: Extending the protocol reverse engineering concept to vulnerability discovery or automated malware analysis.
+- **Automated Pentesting / Red Teaming**: Creating an agent similar to the "AI Beta Tester" but focused on autonomously finding security flaws in a controlled web application environment.
+- **De-obfuscation & Code Analysis**: Focusing on using LLMs to untangle obfuscated malicious code or reverse-engineer malware communication protocols.
