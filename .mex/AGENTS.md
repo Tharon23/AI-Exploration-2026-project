@@ -7,13 +7,13 @@ last_updated: 2026-10-07
 # AI Exploration 2026 — AGH UST Cyber Year 3
 
 ## What This Is
-A university AI exploration and evaluation project by Kalab, Bartek, and Kamil for the AI Exploration course at AGH UST (Cybersecurity, 3rd year).
+A university AI exploration and evaluation project by Kalab, Bartek, and Kamil for the AI Exploration course at AGH UST (Cybersecurity, 3rd year). Course Instructor: dr hab. inż. Jarosław Bułat (`kwant`).
 
 ## Non-Negotiables (Hard Rules)
 1. **Never commit directly to `main`**: All work via `feat/<name>-*` or `fix/<name>-*` branches. PR required with 1+ review.
 2. **Never hardcode secrets or API keys**: Always load from `.env` via environment variables.
 3. **Never modify `.mex/` architecture without updating code, and vice versa**: Keep docs and code in strict sync.
-4. **Always record experiment metadata**: Model name, version, tier, prompt, and parameters must accompany all benchmark outputs (course requirement).
+4. **Always record experiment metadata**: Model name, version, tier, prompt (as text, NO screenshots), and parameters must accompany all benchmark outputs.
 5. **No monolithic files**: Code strictly separated into `src/core/`, `src/pipeline/`, `src/evaluation/`, `src/deploy/`, `src/ui/`.
 
 ## Team Roles & Ownership
@@ -21,15 +21,15 @@ A university AI exploration and evaluation project by Kalab, Bartek, and Kamil f
 - **Bartek**: Evaluation, benchmarks, data analysis (`src/evaluation/`)
 - **Kamil**: Infrastructure, Docker, deployment, CLI/UI (`src/deploy/`, `src/ui/`)
 
+## Current Phase: Phase 0 — Brainstorming & First Issue Creation
+- Active focus: Topic selection, stress-testing concepts (Grill-Me), defining the GitLab issue structure.
+- Target: 3 points per sprint ("Byłem pod wrażeniem"), automated multi-model benchmark, standalone Docker deliverable (30% grade).
+
 ## Commands
 - Mex Drift Check: `npx promexeus check`
-- Mex Sync: `npx promexeus sync`
 - Format: `black .`
 - Lint: `ruff check .`
 - Test: `pytest`
-
-## Scaffold Growth
-After every task: if no pattern exists for the task type you just completed, create one. If a pattern or context file is now out of date, update it. The scaffold grows from real work, not just setup. See the GROW step in `ROUTER.md` for details.
 
 ## Navigation
 At the start of every session, read `ROUTER.md` before doing anything else.
