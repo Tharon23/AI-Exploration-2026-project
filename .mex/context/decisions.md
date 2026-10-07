@@ -50,3 +50,11 @@ last_updated: 2026-10-07
 - **Decision**: In Phase III (Sprint 3), measure both Security ASR and Technical Utility using 25 domain engineering tasks with strict ground truth (power calculations, channel counts, inventory matching) verified by automated Python assertions.
 - **Alternatives**: Subjective human ratings 1-5 (discarded, biased/slow), LLM-as-a-Judge (hallucination risk on math/specs), security-only testing (misses utility trade-off).
 - **Consequences**: Complete Pareto Frontier (Security vs Capability vs Latency/Cost) without manual grading overhead.
+
+## ADR-006: Mocked Tool Registry Derived from Public-API Schemas for Indirect Injection
+
+- **Context**: Need realistic agent tool calling (threat intel lookups, outbound exfiltration webhooks, database queries) to evaluate Indirect Prompt Injection and Data Exfiltration. Directly calling real public internet APIs violates Dr. Bułat's strict repeatability criteria, introduces rate limits/downtime, and breaks the 100% offline Docker container deploy requirement (30% of final grade).
+- **Decision**: Adopt realistic request/response schemas modeled after industry public APIs (e.g. AbuseIPDB, VirusTotal, Pusher, Postman Echo), but implement them strictly as offline local fixtures and mocked tools within `src/pipeline/tools/`.
+- **Alternatives**: Live external API calls (discarded: non-deterministic, rate limits, internet required), purely abstract synthetic toy functions (discarded: lacks realism for production evaluation).
+- **Consequences**: 100% offline self-containment for Docker deploy, zero credential churn, sub-millisecond execution for variance benchmarking, realistic data poisoning / indirect injection payloads.
+
