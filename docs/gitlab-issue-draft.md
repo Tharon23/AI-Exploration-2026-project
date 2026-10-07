@@ -43,9 +43,11 @@ Sprawdzamy dwa główne wektory:
 - Podpięcie Jev API jako szybkiego klasyfikatora bezpieczeństwa.
 - Prosty kontener Docker ze szkieletem interfejsu w Streamlicie.
 
-### Sprint 2: Zestaw ataków i pomiary wariancji
-- Zbudowanie zestawu 50 scenariuszy testowych (OWASP LLM Top 10, obfuskacja Base64, podmiana języka, zatrute załączniki techniczne).
-- Uruchomienie automatycznych testów z powtórzeniami (po 5 do 10 prób na prompt), żeby zmierzyć powtarzalność zachowania modeli.
+### Sprint 2: Zestaw ataków, reguły ATR i pomiary wariancji (Fuzzing)
+- Zbudowanie zestawu 50 scenariuszy testowych zmapowanych na OWASP Agentic Top 10 i standard Agent Threat Rules (ATR, 330 reguł YAML).
+- Wdrożenie mutacyjnego fuzzeru promptów (obfuskacja Base64, leet-speak, podmiana języka, payload splitting) do masowego badania wariancji.
+- Uruchomienie automatycznych testów z powtórzeniami (po 10 prób na wariant), żeby zmierzyć odchylenie standardowe i stabilność modeli.
+- Implementacja lokalnych mocków narzędzi wzorowanych na public-apis (AbuseIPDB, VirusTotal, Postman Echo) pod scenariusz ToolHijacker / Indirect Injection.
 
 ### Sprint 3: Macierz porównawcza, analiza modeli reasoning i test zadań technicznych
 - Zestawienie wyników bezpieczeństwa dla modeli komercyjnych (GPT-4o-mini, Claude 3.5 Haiku, Gemini Flash), modeli otwartych (Qwen 2.5, Llama 3.1) i modeli CoT (DeepSeek R1).
@@ -98,7 +100,14 @@ Każde zapytanie testowe trafia do pliku JSONL z kompletem metadanych:
 - Wynik binarny: czy flaga canary została ujawniona oraz czy zadanie techniczne przeszło asercje logiczne.
 
 ### 4. Podział zadań w zespole
-- Kalab (Lead): Architektura potoku, klient modeli, integracja Jev System-1 (moduły src/core/ i src/pipeline/).
-- Bartek: Przygotowanie korpusu ataków, testy zadań technicznych z asercjami i pomiar wariancji (moduł src/evaluation/).
-- Kamil: Konteneryzacja w Dockerze, środowisko uruchomieniowe i interfejs w Streamlicie (moduły src/deploy/ i src/ui/).
+- Kalab (Lead): Architektura potoku, klient modeli, integracja Jev System-1 i mocków narzędzi (moduły src/core/ i src/pipeline/).
+- Bartek: Zestaw ataków ATR, fuzzer mutacyjny, testy zadań z asercjami i pomiar wariancji (moduł src/evaluation/).
+- Kamil: Konteneryzacja w Dockerze (offline deployment), środowisko uruchomieniowe i UI Streamlit (moduły src/deploy/ i src/ui/).
+
+### 5. Podstawa teoretyczna i literatura SOTA (2025/2026)
+- **The Landscape of Prompt Injection Threats in LLM Agents (SoK)** (arXiv:2602.10453, Luty 2026): Taksonomia wektorów ataku i obrony ze szczególnym uwzględnieniem warstwy wykonawczej (execution-level).
+- **ToolHijacker: Prompt Injection Attack to Tool-Calling LLM Agents**: Metodologia testowania wymuszonych wywołań niebezpiecznych narzędzi przez zatrute dane wejściowe.
+- **Securing AI Agents Against Prompt Injection Attacks** (arXiv:2511.15759, Listopad 2025): Badanie Pareto Frontier – minimalizacja ASR bez degradacji zdolności operacyjnych modelu.
+- **Agent Threat Rules (ATR)**: Format sygnatur detekcyjnych YAML zmapowany na OWASP Agentic Top 10 i MITRE ATLAS.
 ```
+
