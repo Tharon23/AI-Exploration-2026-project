@@ -25,11 +25,39 @@ This project uses `.mex/` as canonical persistent context across all AI harnesse
 3. **Always record experiment metadata**: Model name, exact version, tier, prompt (as text, NO screenshots), and parameters in every output.
 4. **No monolithic files**: Modular architecture strictly separated by ownership.
 5. **Sync mex with code**: If architecture or conventions change, update `.mex/context/` in the same commit.
+6. **Mandatory Agency Agent Consultation**: Before designing architecture, pipelines, prompts, or workflows, agents MUST read and embody the corresponding specialist from `.gemini/agents/`.
 
-## Installed Agency Agents (`.gemini/agents/`)
-- **Core AI**: AI Engineer, Multi-Agent Architect, RAG Pipeline, Prompt Engineer
-- **Support**: Software Architect, Codebase Onboarding, Git Workflow Master, Tech Writer
-- **Strategy**: Product Manager, Senior PM, Research Synthesist, Trend Researcher, UX Researcher
+---
+
+## 🤖 Installed Agency Agents Enforcement (`.gemini/agents/`)
+
+Every agent operating in this repository MUST explicitly reference and load instructions from `.gemini/agents/` based on task type:
+
+| Task Type | Required Agency Agent | Path |
+|---|---|---|
+| **AI Model Pipeline & LLM Integrations** | AI Engineer | `.gemini/agents/engineering-ai-engineer.md` |
+| **Multi-Agent Systems & Decision Routing** | Multi-Agent Systems Architect | `.gemini/agents/engineering-multi-agent-systems-architect.md` |
+| **RAG, Vector & Embedding Workflows** | RAG Pipeline Engineer | `.gemini/agents/engineering-rag-pipeline-engineer.md` |
+| **Prompt Engineering & Evaluation Design** | Prompt Engineer | `.gemini/agents/engineering-prompt-engineer.md` |
+| **System Architecture & Boundaries** | Software Architect | `.gemini/agents/engineering-software-architect.md` |
+| **Onboarding & Environment Verification** | Codebase Onboarding Engineer | `.gemini/agents/engineering-codebase-onboarding-engineer.md` |
+| **Git Branching, PRs, Hooks Enforcement** | Git Workflow Master | `.gemini/agents/engineering-git-workflow-master.md` |
+| **Reports, GitLab Issue & Wiki Content** | Technical Writer | `.gemini/agents/engineering-technical-writer.md` |
+| **Brainstorming, Scope & MVP Slicing** | Senior Project Manager / PM | `.gemini/agents/project-manager-senior.md` |
+| **Literature, SOTA & Previous Work Review** | Research Synthesist | `.gemini/agents/research-synthesist.md` |
+
+---
+
+## 🧰 Configured Tools & Technologies Checklist
+
+- [x] **Python 3.11+ Core**: `pydantic` v2, `pydantic-settings`, `tabulate`, `python-dotenv`.
+- [x] **Dev & Linting**: `black`, `ruff`, `pytest`.
+- [x] **Model Providers (System Two)**: Standard generative client abstractions for OpenAI, Anthropic, Gemini, and Ollama.
+- [x] **Decision Models (System One)**: Jev API (`typesafe.ai`), `codaaiteam/jev-ai` integration + local fallback in `src/pipeline/providers/jev.py` for sub-100ms routing and guardrails.
+- [x] **Turnkey Onboarding**: `setup.bat` (Windows) and `setup.sh` (Linux) for instant environment provisioning.
+- [x] **Git Protection**: Pre-commit hooks blocking `main`, enforcing branch naming (`feat/<name>-*`), and protecting against secret leaks.
+- [x] **MEX Context Scaffold**: 100/100 drift score across all 16 context files.
+- [x] **System Verification Prompt**: Available in `docs/system-check-prompt.md` to run self-tests anytime.
 
 ---
 
@@ -61,20 +89,3 @@ Understanding the evaluation system is essential for achieving the highest grade
    - Tagi sprintów w Activity: `~sprint_01`, `~sprint_02`.
    - Przeniesienie do kolumny `Review` **dzień przed terminem labu**.
    - Po zakończeniu projektu: przeniesienie materiałów do GitLab Wiki i zamknięcie issue (`Closed`).
-
-### Wytyczne dla Agentów podczas Brainstormingu
-
-Gdy użytkownik omawia lub testuje pomysły na projekt:
-1. **Tryb Grill-Me / Stress-Test**:
-   - Przeanalizuj pomysł pod kątem: unikalności (względem 30+ projektów z 2024-2026), wykonalności w 12-14 sprintach, dostępności modeli/danych i cyberbezpieczeństwa.
-   - Wskaż potencjalne pułapki (np. brak obiektywnego ground truth, zbyt wysokie koszty API, brak możliwości stworzenia kontenera demonstracyjnego).
-2. **Optymalizacja pod "3 punkty"**:
-   - Zadbaj o element zautomatyzowanej ewaluacji (np. architektura wieloagentowa z sędzią AI, syntetyczny dataset testowy, automatyczny pomiar metryk).
-   - Zaplanuj demonstrator (interaktywny web UI / CLI / dashboard wizualny w Dockerze).
-3. **Szablon Pierwszego Issue**:
-   Pomóż sformułować zgłoszenie na GitLab w standardzie:
-   - **Cel projektu** (problem, teza badawcza, dlaczego to ważne).
-   - **Eksperymenty** (konkretna lista scenariuszy i wariantów).
-   - **Co chcemy sprawdzić** (mierzalne pytania badawcze).
-   - **Porównanie modeli** (zestawienie modeli komercyjnych i lokalnych).
-   - **Oczekiwany wynik / Deliverable** (demonstrator, kontener Docker, raport).

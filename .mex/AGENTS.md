@@ -15,6 +15,7 @@ A university AI exploration and evaluation project by Kalab, Bartek, and Kamil f
 3. **Never modify `.mex/` architecture without updating code, and vice versa**: Keep docs and code in strict sync.
 4. **Always record experiment metadata**: Model name, version, tier, prompt (as text, NO screenshots), and parameters must accompany all benchmark outputs.
 5. **No monolithic files**: Code strictly separated into `src/core/`, `src/pipeline/`, `src/evaluation/`, `src/deploy/`, `src/ui/`.
+6. **Mandatory Agency Agent consultation**: Agents MUST embody specialized roles from `.gemini/agents/` for domain tasks.
 
 ## Team Roles & Ownership
 - **Kalab** (`Tharon23`): Architecture, AI pipelines, agent orchestration (`src/core/`, `src/pipeline/`)
@@ -24,6 +25,7 @@ A university AI exploration and evaluation project by Kalab, Bartek, and Kamil f
 ## Current Phase: Phase 0 — Brainstorming & First Issue Creation
 - Active focus: Topic selection, stress-testing concepts (Grill-Me), defining the GitLab issue structure.
 - Target: 3 points per sprint ("Byłem pod wrażeniem"), automated multi-model benchmark, standalone Docker deliverable (30% grade).
+- Diagnostics: Run self-test prompt in `docs/system-check-prompt.md`.
 
 ## Commands
 - Mex Drift Check: `npx promexeus check`
