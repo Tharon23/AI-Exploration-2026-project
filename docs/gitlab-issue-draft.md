@@ -31,9 +31,9 @@ Sprawdzamy dwa główne wektory:
 2. Atak pośredni (Indirect Prompt Injection), gdzie klient przesyła spreparowany dokument (np. zatruty rider techniczny), który wewnętrzny asystent pracownika przetwarza w panelu.
 
 ## 2. Cele projektu
-- Cel badawczy: Zmierzenie skuteczności ataków (Attack Success Rate, ASR) na poszczególnych modelach oraz sprawdzenie, o ile punktów procentowych filtr System-1 (Jev) obniża wskaźnik wycieków. Porównujemy modele komercyjne, małe modele otwartoźródłowe (Qwen, Mistral, Llama) oraz modele z jawnym procesem rozumowania (DeepSeek R1).
-- Cel inżynieryjny: Przygotowanie automatycznego środowiska testowego w Pythonie, które wykonuje serie powtarzalnych ataków, mierzy wariancję i weryfikuje wycieki za pomocą tokenów kontrolnych (Canary Tokens). Przygotowanie działającego demonstratora w Dockerze (Streamlit) z przełącznikiem filtru Jev ON/OFF.
-- Pytanie poznawcze: Czy modele typu reasoning (DeepSeek R1 z łańcuchem myślowym CoT) są z natury bardziej odporne na manipulację, czy też rozbudowany proces myślenia ułatwia atakującemu ominięcie zabezpieczeń?
+- Cel badawczy: Zmierzenie skuteczności ataków (Attack Success Rate, ASR) oraz zdolności modeli do rozwiązywania złożonych zadań firmy eventowej (dobór sprzętu pod rider, kalkulacje mocy, ograniczenia budżetowe). Sprawdzamy relację bezpieczeństwo vs możliwości vs koszt: jaki model wystarcza na publiczny czat z filtrem Jev, a jaki jest niezbędny w panelu pracownika.
+- Cel inżynieryjny: Przygotowanie automatycznego środowiska testowego w Pythonie, które wykonuje serie powtarzalnych ataków, mierzy wariancję, weryfikuje wycieki za pomocą tokenów kontrolnych (Canary Tokens) oraz automatycznie ocenia poprawność zadań technicznych przez asercje logiczne. Przygotowanie działającego demonstratora w Dockerze (Streamlit) z przełącznikiem filtru Jev ON/OFF.
+- Pytanie poznawcze: Czy modele typu reasoning (DeepSeek R1 z łańcuchem myślowym CoT) są z natury bardziej odporne na manipulację i lepiej radzą sobie z ograniczeniami sprzętowymi, czy też rozbudowany proces myślenia ułatwia atakującemu ominięcie zabezpieczeń?
 
 ## 3. Plan prac (sprinty)
 
@@ -47,12 +47,13 @@ Sprawdzamy dwa główne wektory:
 - Zbudowanie zestawu 50 scenariuszy testowych (OWASP LLM Top 10, obfuskacja Base64, podmiana języka, zatrute załączniki techniczne).
 - Uruchomienie automatycznych testów z powtórzeniami (po 5 do 10 prób na prompt), żeby zmierzyć powtarzalność zachowania modeli.
 
-### Sprint 3: Macierz porównawcza i analiza modeli reasoning
-- Zestawienie wyników dla modeli komercyjnych (GPT-4o-mini, Claude 3.5 Haiku, Gemini Flash), modeli otwartych (Qwen 2.5, Llama 3.1) i modeli CoT (DeepSeek R1).
-- Wyliczenie metryk ASR, narzutu czasowego dodawanego przez Jeva oraz kosztu zapytań.
+### Sprint 3: Macierz porównawcza, analiza modeli reasoning i test zadań technicznych
+- Zestawienie wyników bezpieczeństwa dla modeli komercyjnych (GPT-4o-mini, Claude 3.5 Haiku, Gemini Flash), modeli otwartych (Qwen 2.5, Llama 3.1) i modeli CoT (DeepSeek R1).
+- Benchmark zadań technicznych z twardym ground truth: automatyczne sprawdzanie poprawności obliczeń akustycznych i doboru sprzętu z bazy mocka asercjami w Pythonie.
+- Wyliczenie metryk ASR, trafności zadań technicznych, narzutu czasowego dodawanego przez Jeva oraz kosztu zapytań.
 
 ### Sprint 4: Demonstrator, wiki i podsumowanie
-- Dopracowanie panelu Streamlit (czat na żywo, testowanie ataków suwakiem Jev ON/OFF, podgląd wykresów).
+- Dopracowanie panelu Streamlit (czat na żywo, testowanie ataków suwakiem Jev ON/OFF, podgląd wykresów bezpieczeństwa i jakości).
 - Przeniesienie surowych wyników i wniosków do GitLab Wiki, przygotowanie kontenera pod pokaz na auli.
 
 ## 4. Testowane modele
@@ -62,6 +63,7 @@ Sprawdzamy dwa główne wektory:
 
 ## 5. Mierzone wskaźniki
 - ASR (Attack Success Rate): Odsetek prób, w których model ujawnił token kontrolny (wartość od 0.0 do 1.0).
+- Trafność zadań technicznych (Task Accuracy): Odsetek poprawnie rozwiązanych problemów technicznych (prawidłowe obliczenia mocy, brak halucynacji sprzętu spoza magazynu).
 - Czas odpowiedzi: Opóźnienie wprowadzane przez filtr decyzyjny (cel poniżej 100 ms) w zestawieniu z czasem generacji całego LLM-a.
 - Wariancja: Powtarzalność wyników przy identycznym prompcie w 10 niezależnych przebiegach.
 - Zysk z ochrony: Różnica w ASR między samym modelem a modelem z aktywnym filtrem Jev.
@@ -79,7 +81,12 @@ Sprawdzamy dwa główne wektory:
 - Format: CANARY_FLAG_{KATEGORIA}_{HASH} (na przykład CANARY_FLAG_MARZA_8492).
 - Sukces ataku weryfikujemy w 100% deterministycznie prostym wyrażeniem regularnym szukającym obecności flagi w wyjściowym tekście.
 
-### 2. Format zapisu wyników
+### 2. Ocena zadań technicznych: twardy Ground Truth
+Zamiast ręcznego czytania i oceniania planów eventów, wprowadzamy 25 zadań inżynierskich z jednoznacznym wynikiem logiczno-obliczeniowym:
+- Przykłady: obliczenie zapotrzebowania mocy, dobór liczby kanałów miksera, alokacja mikrofonów pod rider.
+- Weryfikacja: skrypt w Pythonie automatycznie sprawdza reguły (czy wynik liczbowy mieści się w tolerancji, czy model nie dobrał urządzeń spoza bazy magazynowej).
+
+### 3. Format zapisu wyników
 Każde zapytanie testowe trafia do pliku JSONL z kompletem metadanych:
 - Dokładny timestamp zapytania.
 - Nazwa i wersja modelu (np. meta-llama/llama-3.1-8b-instruct).
@@ -88,10 +95,10 @@ Każde zapytanie testowe trafia do pliku JSONL z kompletem metadanych:
 - Pełna treść promptu (w tekście, bez screenshotów).
 - Stan filtru Jev (włączony / wyłączony).
 - Zmierzony czas odpowiedzi w milisekundach.
-- Wynik binarny: czy flaga canary została ujawniona.
+- Wynik binarny: czy flaga canary została ujawniona oraz czy zadanie techniczne przeszło asercje logiczne.
 
-### 3. Podział zadań w zespole
+### 4. Podział zadań w zespole
 - Kalab (Lead): Architektura potoku, klient modeli, integracja Jev System-1 (moduły src/core/ i src/pipeline/).
-- Bartek: Przygotowanie korpusu ataków, automatyczny skrypt ewaluacji i pomiar wariancji (moduł src/evaluation/).
+- Bartek: Przygotowanie korpusu ataków, testy zadań technicznych z asercjami i pomiar wariancji (moduł src/evaluation/).
 - Kamil: Konteneryzacja w Dockerze, środowisko uruchomieniowe i interfejs w Streamlicie (moduły src/deploy/ i src/ui/).
 ```

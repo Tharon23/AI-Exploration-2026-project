@@ -33,7 +33,7 @@ Then read this file fully before doing anything else in this session.
 - Project scaffold and directory structure created
 - `.mex/` persistent memory scaffold initialized and configured for 3 contributors
 - Course rules and project catalog documented (`docs/course-rules.md`, `research/previous-projects/full-project-catalog.md`)
-- Final project concept selected: Dual-LLM Security Benchmark with Jev System-1 routing (`group_BlueMoon`), proposal drafted in `docs/gitlab-issue-draft.md`
+- Final project concept selected: Dual-Dimension Benchmark (Security ASR vs Technical Planning Ground Truth) with Jev System-1 routing (`group_BlueMoon`), proposal drafted in `docs/gitlab-issue-draft.md`
 
 **Not yet built:**
 - Core source modules (`src/core/`, `src/pipeline/`, `src/evaluation/`, `src/deploy/`, `src/ui/`)

@@ -46,7 +46,7 @@ Flow: Input trigger (CLI argument, config file, or test case) → loaded through
 
 - **`src/core/`** — Shared data contracts, types, and abstract base classes (`ModelRequest`/`Response`, `DecisionRequest`/`Response`). Any change here touches all 3 contributors and requires team consensus.
 - **`src/pipeline/`** — Model interaction layer, prompt templates, agent orchestration, and API wrappers (OpenAI, Anthropic, Google, Ollama, Jev/Laya). Owned by Kalab / Bartek.
-- **`src/evaluation/`** — Automated scoring, metrics calculation (accuracy, latency, cost, consistency), comparison tables, and report generation. Owned by Bartek.
+- **`src/evaluation/`** — Automated scoring, canary leakage regex matching, technical planning ground-truth assertions, metrics calculation (ASR, accuracy, latency, cost, variance), and report generation. Owned by Bartek.
 - **`src/deploy/`** — Containerization (Dockerfile, docker-compose), environment provisioning, reproduction scripts, and CI automation. Owned by Kamil.
 - **`src/ui/`** — Visual interface, CLI commands, or dashboard for displaying results and running live demos. Owned by Kamil / Bartek.
 
