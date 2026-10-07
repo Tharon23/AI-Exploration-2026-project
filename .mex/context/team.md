@@ -15,10 +15,11 @@ last_updated: 2026-10-07
 
 | Contributor | GitHub / Handle | Primary Focus | Branch Pattern |
 |-------------|-----------------|---------------|----------------|
-| **Kalab** (Lead) | `Tharon23` | Architecture, AI pipelines, agent orchestration | feat-kalab-*, fix-kalab-* |
-| **Bartek** | TBD | Evaluation, benchmarks, data pipelines | feat-bartek-*, fix-bartek-* |
-| **Kamil** | TBD | Infra, tooling, deployment (Docker/Ansible), docs | feat-kamil-*, fix-kamil-* |
+| **Kalab** (Lead) | `Tharon23` | Architecture, AI pipelines, agent orchestration | feat/kalab-*, fix/kalab-* |
+| **Bartek** | TBD | Evaluation, benchmarks, data pipelines | feat/bartek-*, fix/bartek-* |
+| **Kamil** | TBD | Infra, tooling, deployment (Docker/Ansible), docs | feat/kamil-*, fix/kamil-* |
 
+> GitLab Group: `group_BlueMoon`
 > Roles are flexible but serve as default ownership to avoid merge conflicts and overlapping work.
 
 ## Multi-Contributor Rules (Non-Negotiable)

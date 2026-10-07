@@ -36,3 +36,10 @@ last_updated: 2026-10-07
 - **Decision**: Adopt `.mex/` standard (`promexeus`) as canonical truth for architecture, conventions, and patterns across all tools.
 - **Alternatives**: Plain READMEs, tool-specific prompts only.
 - **Consequences**: Consistent AI behavior regardless of harness, persistent memory.
+
+## ADR-004: Dual-LLM Security Benchmark and Jev System-1 Routing
+
+- **Context**: Need a focused project topic for AI Exploration 2026 (Cybersecurity 3rd year). Evaluated alternatives: Poker bot analysis (redundant with 2024 UPOST project), direct production app modification (high risk).
+- **Decision**: Build an isolated laboratory benchmark testing Dual-LLM security (public bot vs private employee panel) with Jev API / System-1 fast routing (<100ms) and Canary Tokens for deterministic exfiltration detection. Deliverable in Streamlit + Docker. Group registered as `group_BlueMoon`.
+- **Alternatives**: Poker assistant (discarded, duplicate), production repo coupling (discarded, unsafe).
+- **Consequences**: Clear cybersecurity relevance, high reproducibility under course criteria, clean separation of team roles.

@@ -33,16 +33,16 @@ Then read this file fully before doing anything else in this session.
 - Project scaffold and directory structure created
 - `.mex/` persistent memory scaffold initialized and configured for 3 contributors
 - Course rules and project catalog documented (`docs/course-rules.md`, `research/previous-projects/full-project-catalog.md`)
+- Final project concept selected: Dual-LLM Security Benchmark with Jev System-1 routing (`group_BlueMoon`), proposal drafted in `docs/gitlab-issue-draft.md`
 
 **Not yet built:**
 - Core source modules (`src/core/`, `src/pipeline/`, `src/evaluation/`, `src/deploy/`, `src/ui/`)
-- Final project concept selection (in Discovery phase)
-- GitLab issue #1 (team registration) and initial project proposal issue
+- GitLab issue #1 (team registration) and initial project proposal issue submission
 - Docker containerization for final deliverable
 
 **Known issues / Risks:**
-- Project topic not yet finalized among Kalab, Bartek, and Kamil
-- Need consensus on tech stack and model providers before implementation begins
+- Need consensus on exact OpenRouter API keys / budget for commercial models
+- Local Ollama CPU performance validation for 7B/8B models on student laptops
 
 ## Routing Table
 
