@@ -43,3 +43,10 @@ last_updated: 2026-10-07
 - **Decision**: Build an isolated laboratory benchmark testing Dual-LLM security (public bot vs private employee panel) with Jev API / System-1 fast routing (<100ms) and Canary Tokens for deterministic exfiltration detection. Deliverable in Streamlit + Docker. Group registered as `group_BlueMoon`.
 - **Alternatives**: Poker assistant (discarded, duplicate), production repo coupling (discarded, unsafe).
 - **Consequences**: Clear cybersecurity relevance, high reproducibility under course criteria, clean separation of team roles.
+
+## ADR-005: Dual-Dimension Benchmark (Security ASR vs Technical Planning Ground Truth)
+
+- **Context**: Evaluating models purely on security (ASR) misses the operational trade-off: a model that refuses all inputs is 100% secure but useless for staff operations. Subjective human grading of open-ended event plans introduces high effort and evaluation bias.
+- **Decision**: In Phase III (Sprint 3), measure both Security ASR and Technical Utility using 25 domain engineering tasks with strict ground truth (power calculations, channel counts, inventory matching) verified by automated Python assertions.
+- **Alternatives**: Subjective human ratings 1-5 (discarded, biased/slow), LLM-as-a-Judge (hallucination risk on math/specs), security-only testing (misses utility trade-off).
+- **Consequences**: Complete Pareto Frontier (Security vs Capability vs Latency/Cost) without manual grading overhead.
