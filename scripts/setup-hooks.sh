@@ -30,7 +30,14 @@ for FILE in $(git diff --cached --name-only); do
     fi
 done
 
-# 4. Mex contract reminder
+# 4. Jev System-1 Guardrail (Fast AI Security Check)
+if command -v python3 &> /dev/null; then
+    python3 scripts/jev_guardrail.py || exit 1
+elif command -v python &> /dev/null; then
+    python scripts/jev_guardrail.py || exit 1
+fi
+
+# 5. Mex contract reminder
 SRC_CHANGED=$(git diff --cached --name-only | grep -E "^src/" || true)
 MEX_CHANGED=$(git diff --cached --name-only | grep -E "^\.mex/" || true)
 if [ -n "$SRC_CHANGED" ] && [ -z "$MEX_CHANGED" ]; then
@@ -41,4 +48,4 @@ exit 0
 EOF
 
 chmod +x "$HOOKS_DIR/pre-commit"
-echo "Git pre-commit hooks installed successfully!"
+echo "Git pre-commit hooks (with Jev Guardrail) installed successfully!"
