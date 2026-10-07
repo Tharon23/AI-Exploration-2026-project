@@ -6,7 +6,7 @@
 
 ---
 
-## 🚀 Pierwsze Kroki (Setup w 3 minuty)
+## 🚀 Pierwsze Kroki (1-Click Setup w 30 sekund)
 
 ### 1. Sklonuj repo i wejdź do folderu
 ```bash
@@ -14,32 +14,30 @@ git clone <URL_REPOZYTORIUM>
 cd AI-Exploration-2026-project
 ```
 
-### 2. Zainstaluj git hooki (OBOWIĄZKOWE)
+### 2. Uruchom automatyczny skrypt instalacyjny:
+- **Windows (CMD / PowerShell)**:
+  ```cmd
+  setup.bat
+  ```
 - **Linux / macOS**:
   ```bash
-  bash scripts/setup-hooks.sh
+  bash setup.sh
   ```
-- **Windows (PowerShell)**:
-  ```powershell
-  powershell -ExecutionPolicy Bypass -File scripts\setup-hooks.ps1
-  ```
-> Hooki chronią branch `main` przed przypadkowym pushem i pilnują konwencji nazw gałęzi.
 
-### 3. Skonfiguruj plik `.env`
-```bash
-cp .env.example .env
-```
-Otwórz `.env` i ustaw swoje imię:
+Skrypt automatycznie:
+- Tworzy środowisko wirtualne `.venv`
+- Instaluje zależności z `requirements.txt` (`pydantic`, `tabulate`, `ruff`, `black`, `pytest`, etc.)
+- Tworzy `.env` z `.env.example`
+- Instaluje Git Hooki chroniące branch `main`
+- Odpala `npx promexeus check` i weryfikuje wynik `100/100`!
+
+### 3. Skonfiguruj `.env`
+Otwórz `.env` i ustaw:
 ```ini
 CONTRIBUTOR_NAME=bartek   # lub kamil / kalab
 ```
-oraz wklej klucze API modeli (nigdy nie commituj pliku `.env`!).
+Oraz uzupełnij swoje klucze API.
 
-### 4. Sprawdź spójność pamięci `.mex/`
-```bash
-npx promexeus check
-```
-Powinieneś zobaczyć: `Drift score: 100/100 — 0 errors, 0 warnings`.
 
 ---
 
