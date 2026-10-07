@@ -28,7 +28,8 @@ last_updated: 2026-10-07
 
 ## AI & LLM Integrations
 
-- **API SDKs**: `openai`, `anthropic`, `google-genai`
+- **Generative API SDKs (System Two)**: `openai`, `anthropic`, `google-genai`
+- **Decision Models (System One)**: Jev API (`typesafe.ai`), Laya (`onnxruntime` / ModernBERT) for sub-100ms classification and guardrails
 - **Local Inference**: Ollama API, vLLM / HuggingFace Transformers
 - **Agent Orchestration**: Native lightweight Python pipelines (Ponytail philosophy: minimal dependencies, standard library first)
 - **Data Handling**: `pandas`, `numpy`, `tabulate` for benchmark outputs

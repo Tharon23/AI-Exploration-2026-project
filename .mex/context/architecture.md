@@ -25,8 +25,9 @@ last_updated: 2026-10-07
 [Input / CLI / UI] 
        │
        ▼
-[Core Interfaces] ──── (contracts defined in src/core/)
-       │
+[Core Interfaces] ──── (contracts in src/core/interfaces.py)
+       │                 • System One: Decision Models (Jev/Laya)
+       │                 • System Two: Generative LLMs (OpenAI/Claude/Ollama)
   ┌────┴──────────────────────────┐
   ▼                               ▼
 [AI / Agent Pipeline]   [Evaluation / Benchmark Engine]
@@ -34,17 +35,17 @@ last_updated: 2026-10-07
   ▼                               ▼
 [Model Providers API]   [Metrics & Reports Output]
 (OpenAI, Anthropic,           (Markdown, JSON, CSV)
- Local Ollama/vLLM)               │
-                                  ▼
+ Local Ollama/vLLM,               │
+ Jev API / Laya ONNX)             ▼
                         [Deploy / Docker Artifact]
 ```
 
-Flow: Input trigger (CLI argument, config file, or test case) → loaded through Core Interfaces → dispatched to AI Pipeline → responses evaluated by Evaluation Engine → structured results saved to output directory + formatted for GitLab reporting.
+Flow: Input trigger (CLI argument, config file, or test case) → loaded through Core Interfaces → dispatched to AI Pipeline (with optional fast sub-100ms routing by Decision Models) → responses evaluated by Evaluation Engine → structured results saved to output directory + formatted for GitLab reporting.
 
 ## Key Components
 
-- **`src/core/`** — Shared data contracts, types, and abstract base classes. Any change here touches all 3 contributors and requires team consensus.
-- **`src/pipeline/`** — Model interaction layer, prompt templates, agent orchestration, and API wrappers (OpenAI, Anthropic, Google, Ollama). Owned by Kalab / Bartek.
+- **`src/core/`** — Shared data contracts, types, and abstract base classes (`ModelRequest`/`Response`, `DecisionRequest`/`Response`). Any change here touches all 3 contributors and requires team consensus.
+- **`src/pipeline/`** — Model interaction layer, prompt templates, agent orchestration, and API wrappers (OpenAI, Anthropic, Google, Ollama, Jev/Laya). Owned by Kalab / Bartek.
 - **`src/evaluation/`** — Automated scoring, metrics calculation (accuracy, latency, cost, consistency), comparison tables, and report generation. Owned by Bartek.
 - **`src/deploy/`** — Containerization (Dockerfile, docker-compose), environment provisioning, reproduction scripts, and CI automation. Owned by Kamil.
 - **`src/ui/`** — Visual interface, CLI commands, or dashboard for displaying results and running live demos. Owned by Kamil / Bartek.
@@ -52,6 +53,7 @@ Flow: Input trigger (CLI argument, config file, or test case) → loaded through
 ## External Dependencies
 
 - **LLM APIs** — OpenAI (GPT-4o/mini), Anthropic (Claude 3.5/Sonnet), Google (Gemini 2.5/Flash), local Ollama/vLLM for open-weight models.
+- **Decision Models** — Jev API (`typesafe.ai`) or local `laya` (ModernBERT ONNX) for sub-100ms classification and guardrails.
 - **GitLab (AGH)** — Source of truth for grading, issue tracking (~sprint_XX), wiki documentation, and final deliverable archiving.
 - **Docker** — Required for 30% of grade: final project must be runnable as a container for next year's demonstration.
 
