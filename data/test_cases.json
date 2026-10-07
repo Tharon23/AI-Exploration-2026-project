@@ -1,0 +1,7 @@
+[
+  {
+    "id": "case-001",
+    "prompt": "Test exploration case for model behavior analysis.",
+    "category": "smoke-test"
+  }
+]

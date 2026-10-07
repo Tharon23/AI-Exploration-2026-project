@@ -2,46 +2,38 @@
 
 ## Project Context
 University project for AI Exploration course at AGH UST, Cybersecurity 3rd year.
-Full project managed via GitLab (source of truth for previous projects, assignments, materials).
-This GitHub repo = working space for our team's project.
+Full project managed via GitLab (source of truth for grading, sprint issues, wiki archive).
+This GitHub repo = working space for our 3-person team: **Kalab** (lead), **Bartek**, **Kamil**.
 
-## Installed Agency Agents
-Located in `.gemini/agents/`. These personas guide AI-assisted work:
+## Persistent Memory: .mex/
+This project uses `.mex/` as canonical persistent context across all AI harnesses (Antigravity, Cursor, Claude Code, Copilot).
+- Always read `.mex/ROUTER.md` before starting any session.
+- Keep `.mex/context/` synchronized with code changes.
 
-### Core AI Team
-- **AI Engineer** — ML models, deployment, AI integration
-- **Multi-Agent Systems Architect** — multi-agent pipeline design & governance
-- **RAG Pipeline Engineer** — retrieval-augmented generation pipelines
-- **Prompt Engineer** — LLM prompt design & optimization
+## Team Structure & Ownership
+| Contributor | Focus | Modules | Branch Prefix |
+|-------------|-------|---------|---------------|
+| **Kalab** (Lead) | Architecture, AI pipelines, agents | `src/core/`, `src/pipeline/` | `feat/kalab-*` |
+| **Bartek** | Evaluation, benchmarks, metrics | `src/evaluation/` | `feat/bartek-*` |
+| **Kamil** | Infra, Docker deploy, CLI/UI | `src/deploy/`, `src/ui/` | `feat/kamil-*` |
 
-### Support Team
-- **Software Architect** — system design, DDD, trade-off analysis
-- **Codebase Onboarding Engineer** — fast repo understanding
-- **Git Workflow Master** — branching, commits, CI-friendly flow
-- **Technical Writer** — docs, API reference, tutorials
+## Non-Negotiables
+1. **Never commit directly to `main`**: Always use feature branches (`feat/<name>-<topic>`). PR required.
+2. **Never hardcode secrets/keys**: Use `.env` with python-dotenv.
+3. **Always record experiment metadata**: Model name, version, tier, prompt, and parameters in every output.
+4. **No monolithic files**: Modular architecture strictly separated by ownership.
+5. **Sync mex with code**: If architecture or conventions change, update `.mex/context/` in the same commit.
 
-### Strategy & Research
-- **Product Manager** — roadmap, priorities, user stories
-- **Senior Project Manager** — timeline, risk, stakeholder management
-- **Research Synthesist** — literature review, evidence synthesis
-- **Product Trend Researcher** — emerging tech, competitive landscape
-- **UX Researcher** — user testing, behavior analysis
+## Installed Agency Agents (`.gemini/agents/`)
+- **Core AI**: AI Engineer, Multi-Agent Architect, RAG Pipeline, Prompt Engineer
+- **Support**: Software Architect, Codebase Onboarding, Git Workflow Master, Tech Writer
+- **Strategy**: Product Manager, Senior PM, Research Synthesist, Trend Researcher, UX Researcher
 
 ## Workflow Rules
-1. All code changes via feature branches → PR/MR
-2. Conventional Commits enforced
-3. Issues before code — every change traces to an issue
-4. Brainstorm → Spec → Implement → Test → Document
-5. GitLab = materials archive, GitHub = active development
-
-## Directory Structure
-```
-.gemini/agents/     — Agency agent personas
-docs/               — Project documentation
-research/           — Scraped GitLab materials, prior project analysis
-src/                — Source code (TBD based on project choice)
-specs/              — Feature specifications
-```
+1. Feature branches → PR with at least 1 team review → merge to `main`
+2. Conventional Commits enforced (`feat(...)`, `fix(...)`, `docs(...)`)
+3. Issue-driven: GitLab issue with `grupa:group_nazwa_grupy` and `~sprint_XX` tags
+4. Sprint lifecycle: `Open` → `Doing` → `Review` (day before lab) → `Closed` (after wiki update)
 
 ## Current Phase
-**Phase 0: Discovery** — Gathering materials from GitLab, analyzing previous projects, brainstorming project ideas.
+**Phase 0: Discovery** — GitLab scraped, team environment configured, brainstorming project ideas.
