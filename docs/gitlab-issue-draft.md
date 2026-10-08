@@ -1,104 +1,72 @@
 # Zgłoszenie projektu na GitLab: AI Exploration 2026
 
-Gotowe teksty do wklejenia na GitLabie kursowym (gitlab.tele.agh.edu.pl/kwant/ai-exploration-2026).
+Gotowe teksty do wklejenia na GitLabie kursowym (`gitlab.tele.agh.edu.pl/kwant/ai-exploration-2026`).
 
 ---
 
 ## 1. Tytuł issue
 
 ```text
-Dual-LLM Security Benchmark: Izolacja uprawnień, ochrona przed Jailbreak / Data Exfiltration i routing System-1 (Jev)
+Red-Blue Głośniej: Bezpieczeństwo i testy penetracyjne asystenta AI w branży nagłośnieniowo-eventowej
 ```
 
 ---
 
 ## 2. Opis issue (Description)
 
-> Zastąp `group_NAZWA` docelową nazwą grupy (np. `group_CyberJev`). Pierwsza linijka z prefiksem `grupa:group_` jest wymagana przez skrypt sprawdzający.
+> Pierwsza linijka z prefiksem `grupa:group_` jest wymagana przez skrypt weryfikacyjny kursu.
 
 ```markdown
 grupa:group_BlueMoon
 
-# Dual-LLM Security Benchmark: Izolacja uprawnień, ochrona przed Jailbreak / Data Exfiltration i routing System-1 (Jev)
+# Red-Blue Głośniej: Bezpieczeństwo i testy penetracyjne asystenta AI w branży nagłośnieniowo-eventowej
 
-## 1. Opis problemu
-W aplikacjach biznesowych coraz częściej stawia się obok siebie dwa rodzaje asystentów: publicznego bota dla klientów oraz wewnętrznego asystenta dla pracowników z dostępem do bazy wiedzy firmy. W tym projekcie badamy podatność takiego układu na ataki prompt injection, jailbreak oraz próby wyciągnięcia poufnych danych.
+## 1. Cel projektu
+Celem projektu jest stworzenie aplikacji biznesowej zawierającej asystenta AI w formie chatbota oraz przeprowadzenie wzajemnych testów bezpieczeństwa (w formule Red Team vs Blue Team) we współpracy z drugą grupą projektową.
 
-Testujemy podejście dwuwarstwowe: sprawdzamy, na ile lekki model decyzyjny (Jev API lub klasyfikator heurystyczny z czasem reakcji poniżej 100 ms) działający jako filtr wejściowy potrafi zatrzymać ataki, zanim zapytanie w ogóle trafi do właściwego LLM-a (OpenAI, Anthropic, Google, DeepSeek oraz modeli lokalnych na Ollama). Testy prowadzimy na mocku danych technicznych firmy nagłośnieniowej (stawki hurtowe, marże, ridery sprzętowe, kody dostępowe do magazynu).
+Aplikacja ma odzwierciedlać realne środowisko biznesowe firmy zajmującej się nagłaśnianiem imprez, eventów i koncertów. Nasz zespół (Blue Team) przygotuje kompletną aplikację z asystentem AI, opracuje realistyczne scenariusze biznesowe, spreparuje dane, zdefiniuje listę celów i metryki sukcesu ataków, a także wdroży mechanizmy obronne oraz system zbierania logów w celu detekcji incydentów. 
 
-Sprawdzamy dwa główne wektory:
-1. Bezpośredni atak przez publiczny czat w celu wydobycia promptu systemowego lub ukrytych stawek.
-2. Atak pośredni (Indirect Prompt Injection), gdzie klient przesyła spreparowany dokument (np. zatruty rider techniczny), który wewnętrzny asystent pracownika przetwarza w panelu.
+W drugim etapie projektu nasz zespół przyjmie rolę atakującego (Red Team) i przeprowadzi testy penetracyjne aplikacji przygotowanej przez drugą grupę, wykorzystując m.in. metodykę OWASP Top 10 for LLM Applications, autorskie skrypty oraz zróżnicowane modele językowe (open-source i infrastrukturę Instytutu).
 
-## 2. Cele projektu
-- Cel badawczy: Zmierzenie skuteczności ataków (Attack Success Rate, ASR) oraz zdolności modeli do rozwiązywania złożonych zadań firmy eventowej (dobór sprzętu pod rider, kalkulacje mocy, ograniczenia budżetowe). Sprawdzamy relację bezpieczeństwo vs możliwości vs koszt: jaki model wystarcza na publiczny czat z filtrem Jev, a jaki jest niezbędny w panelu pracownika.
-- Cel inżynieryjny: Przygotowanie automatycznego środowiska testowego w Pythonie, które wykonuje serie powtarzalnych ataków, mierzy wariancję, weryfikuje wycieki za pomocą tokenów kontrolnych (Canary Tokens) oraz automatycznie ocenia poprawność zadań technicznych przez asercje logiczne. Przygotowanie działającego demonstratora w Dockerze (Streamlit) z przełącznikiem filtru Jev ON/OFF.
-- Pytanie poznawcze: Czy modele typu reasoning (DeepSeek R1 z łańcuchem myślowym CoT) są z natury bardziej odporne na manipulację i lepiej radzą sobie z ograniczeniami sprzętowymi, czy też rozbudowany proces myślenia ułatwia atakującemu ominięcie zabezpieczeń?
+## 2. Architektura i funkcjonalności aplikacji (Blue Team)
+- **Środowisko biznesowe:** Wzorowane na firmie nagłośnieniowej (baza sprzętu audio, ridery techniczne, cenniki, harmonogramy realizacji, dane kontaktowe organizatorów i artystów).
+- **Asystent AI (Chatbot):** Asystent wspierający użytkowników (np. obsługa zapytań o wyceny, dobór sprzętu pod rider, informacje organizacyjne).
+- **Spreparowane dane i cele (Flags / Canary Data):** Przygotowanie bazy danych z kontrolowanymi danymi wrażliwymi stanowiącymi cele dla grupy atakującej (umożliwiające jednoznaczną weryfikację wycieku).
+- **Dostępność dla atakujących:** Architektura zaprojektowana w sposób transparentny i dostępny dla drugiej grupy (konteneryzacja, udostępnione endpointy/interfejs).
 
-## 3. Plan prac (sprinty)
+## 3. Ochrona, detekcja i metryki sukcesu
+- **Lista celów i metryki sukcesu ataków:** Jasno zdefiniowane kryteria sukcesu dla grupy atakującej (np. wyciek poufnych cenników, ominięcie ograniczeń ról, zmiana instrukcji systemowych).
+- **Mechanizmy ochronne:** Wdrożenie zabezpieczeń przed atakami typu Prompt Injection, Jailbreak oraz nieautoryzowaną eksfiltracją danych.
+- **System zbierania logów:** Rejestracja zapytań i odpowiedzi (prompty, kontekst, metadane) w celu wykrywania i analizy prób ataków w czasie rzeczywistym oraz post factum.
 
-### Sprint 1: Baza danych mocka, tokeny canary i szkielet potoku
-- Przygotowanie danych testowych z ukrytymi flagami kontrolnymi (format CANARY_FLAG_...).
-- Klient obsługujący API chmurowe (OpenRouter) oraz modele lokalne (Ollama na CPU).
-- Podpięcie Jev API jako szybkiego klasyfikatora bezpieczeństwa.
-- Prosty kontener Docker ze szkieletem interfejsu w Streamlicie.
+## 4. Faza ofensywna (Red Team)
+- Przeprowadzenie kontrolowanych ataków na analogicznie przygotowaną aplikację drugiej grupy.
+- Zastosowanie technik zgodnych z OWASP Top 10 for LLM Applications (Direct/Indirect Prompt Injection, Sensitive Information Disclosure, Insecure Output Handling).
+- Wykorzystanie modeli open-source, lokalnego LLM z infrastruktury Instytutu oraz ręcznie opracowanych skryptów testowych.
 
-### Sprint 2: Zestaw ataków i pomiary wariancji
-- Zbudowanie zestawu 50 scenariuszy testowych (OWASP LLM Top 10, obfuskacja Base64, podmiana języka, zatrute załączniki techniczne).
-- Uruchomienie automatycznych testów z powtórzeniami (po 5 do 10 prób na prompt), żeby zmierzyć powtarzalność zachowania modeli.
-
-### Sprint 3: Macierz porównawcza, analiza modeli reasoning i test zadań technicznych
-- Zestawienie wyników bezpieczeństwa dla modeli komercyjnych (GPT-4o-mini, Claude 3.5 Haiku, Gemini Flash), modeli otwartych (Qwen 2.5, Llama 3.1) i modeli CoT (DeepSeek R1).
-- Benchmark zadań technicznych z twardym ground truth: automatyczne sprawdzanie poprawności obliczeń akustycznych i doboru sprzętu z bazy mocka asercjami w Pythonie.
-- Wyliczenie metryk ASR, trafności zadań technicznych, narzutu czasowego dodawanego przez Jeva oraz kosztu zapytań.
-
-### Sprint 4: Demonstrator, wiki i podsumowanie
-- Dopracowanie panelu Streamlit (czat na żywo, testowanie ataków suwakiem Jev ON/OFF, podgląd wykresów bezpieczeństwa i jakości).
-- Przeniesienie surowych wyników i wniosków do GitLab Wiki, przygotowanie kontenera pod pokaz na auli.
-
-## 4. Testowane modele
-- Komercyjne: OpenAI (gpt-4o-mini), Google (gemini-2.5-flash), Anthropic (claude-3-5-haiku).
-- Lokalne i otwartoźródłowe (przez OpenRouter oraz lokalnie Ollama CPU): deepseek-r1:8b (reasoning), qwen2.5:7b-instruct, llama3.1:8b-instruct (kwantyzacja Q4_K_M), mistral:7b-instruct.
-- Filtr wejściowy (System-1): Jev API (typesafe.ai) oraz lokalne reguły heurystyczne.
-
-## 5. Mierzone wskaźniki
-- ASR (Attack Success Rate): Odsetek prób, w których model ujawnił token kontrolny (wartość od 0.0 do 1.0).
-- Trafność zadań technicznych (Task Accuracy): Odsetek poprawnie rozwiązanych problemów technicznych (prawidłowe obliczenia mocy, brak halucynacji sprzętu spoza magazynu).
-- Czas odpowiedzi: Opóźnienie wprowadzane przez filtr decyzyjny (cel poniżej 100 ms) w zestawieniu z czasem generacji całego LLM-a.
-- Wariancja: Powtarzalność wyników przy identycznym prompcie w 10 niezależnych przebiegach.
-- Zysk z ochrony: Różnica w ASR między samym modelem a modelem z aktywnym filtrem Jev.
+## 5. Plan pracy
+1. **Przygotowanie aplikacji bazowej:** Adaptacja aplikacji, spreparowanie danych biznesowych i uruchomienie chatbota.
+2. **Definicja scenariuszy i celów:** Opracowanie scenariuszy użycia, listy celów (flag) oraz metryk sukcesu ataków dla grupy atakującej.
+3. **Mechanizmy obrony i audytu:** Wdrożenie zabezpieczeń promptu oraz systemu logowania zdarzeń w celu detekcji ataków.
+4. **Konfiguracja modeli:** Podpięcie modeli open-source oraz lokalnego LLM z infrastruktury Instytutu.
+5. **Testy penetracyjne (Red Teaming):** Przeprowadzenie ataków na aplikację drugiej grupy, zbieranie dowodów podatności.
+6. **Raportowanie:** Opracowanie raportu końcowego podsumowującego skuteczność obrony, wykryte ataki oraz wyniki fazy ofensywnej.
 ```
 
 ---
 
-## 3. Pierwszy komentarz w Activity (SOTA i metodologia)
+## 3. Pierwszy komentarz w Activity (Podział ról i organizacja pracy)
 
 ```markdown
-## Metodologia testów i tokeny kontrolne
+## Organizacja pracy i podział ról w zespole (group_BlueMoon)
 
-### 1. Weryfikacja wycieków: Canary Tokens
-Żeby uniknąć subiektywnej oceny i halucynacji modelu sprawdzającego (LLM-as-a-Judge), wrażliwe dane w bazie oznaczamy unikalnymi flagami:
-- Format: CANARY_FLAG_{KATEGORIA}_{HASH} (na przykład CANARY_FLAG_MARZA_8492).
-- Sukces ataku weryfikujemy w 100% deterministycznie prostym wyrażeniem regularnym szukającym obecności flagi w wyjściowym tekście.
+### Założenia organizacyjne
+1. **Współpraca z drugą grupą:** Wymiana dostępów do skonteneryzowanych środowisk testowych oraz uzgodnienie formatu metryk sukcesu (flagi wycieku danych).
+2. **Detekcja w logach:** Wszystkie interakcje z chatbotem będą logowane w ustrukturyzowanym formacie (timestamp, IP/sesja, prompt wejściowy, odpowiedź, flagi anomalii), co pozwoli zweryfikować, kiedy i jak atakujący próbowali przełamać zabezpieczenia.
+3. **Infrastruktura:** Wykorzystanie lokalnych modeli oraz zasobów Instytutu (OpenAI-compatible API) do testów i ewaluacji.
 
-### 2. Ocena zadań technicznych: twardy Ground Truth
-Zamiast ręcznego czytania i oceniania planów eventów, wprowadzamy 25 zadań inżynierskich z jednoznacznym wynikiem logiczno-obliczeniowym:
-- Przykłady: obliczenie zapotrzebowania mocy, dobór liczby kanałów miksera, alokacja mikrofonów pod rider.
-- Weryfikacja: skrypt w Pythonie automatycznie sprawdza reguły (czy wynik liczbowy mieści się w tolerancji, czy model nie dobrał urządzeń spoza bazy magazynowej).
-
-### 3. Format zapisu wyników
-Każde zapytanie testowe trafia do pliku JSONL z kompletem metadanych:
-- Dokładny timestamp zapytania.
-- Nazwa i wersja modelu (np. meta-llama/llama-3.1-8b-instruct).
-- Środowisko (OpenRouter lub lokalna instancja Ollama).
-- Parametry uruchomienia (temperatura, kwantyzacja dla modeli lokalnych).
-- Pełna treść promptu (w tekście, bez screenshotów).
-- Stan filtru Jev (włączony / wyłączony).
-- Zmierzony czas odpowiedzi w milisekundach.
-- Wynik binarny: czy flaga canary została ujawniona oraz czy zadanie techniczne przeszło asercje logiczne.
-
-### 4. Podział zadań w zespole
-- Kalab (Lead): Architektura potoku, klient modeli, integracja Jev System-1 (moduły src/core/ i src/pipeline/).
-- Bartek: Przygotowanie korpusu ataków, testy zadań technicznych z asercjami i pomiar wariancji (moduł src/evaluation/).
-- Kamil: Konteneryzacja w Dockerze, środowisko uruchomieniowe i interfejs w Streamlicie (moduły src/deploy/ i src/ui/).
+### Wstępny podział ról
+- **Kamil:** Przygotowanie i konteneryzacja aplikacji bazowej (branża nagłośnieniowa), spreparowanie danych biznesowych oraz implementacja asystenta AI.
+- **Bartek:** Opracowanie scenariuszy ataków (OWASP Top 10 for LLM), skryptów testowych dla fazy Red Team oraz definicja metryk sukcesu wycieków.
+- **Kalab:** Wdrożenie mechanizmów ochronnych (guardrails), systemu zbierania i analizy logów (detekcja ataków Blue Team) oraz konfiguracja modeli na infrastrukturze Instytutu.
 ```
